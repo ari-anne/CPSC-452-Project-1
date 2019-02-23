@@ -31,8 +31,8 @@ public class Caesar implements CipherInterface {
             cipherText += alphabet.charAt(j);
         }
 
-        // System.out.print(plainText + "\n");
-        // System.out.print(cipherText + "\n");
+        System.out.print(plainText + "\n");
+        System.out.print(cipherText + "\n");
         return cipherText;
     }
 
@@ -42,12 +42,12 @@ public class Caesar implements CipherInterface {
 
         for (int i = 0; i < cipherText.length(); i++) {
             int j = alphabet.indexOf(cipherText.charAt(i)) - key;
-            j = j%26;
+            j = Math.abs(j)%26;
             plainText += alphabet.charAt(j);
         }
 
-        // System.out.print(cipherText + "\n");
-        // System.out.print(plainText + "\n");
+        System.out.print(cipherText + "\n");
+        System.out.print(plainText + "\n");
         return plainText;
     }
 }
