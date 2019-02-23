@@ -46,7 +46,7 @@ public class RowTransposition implements CipherInterface {
         table = new char[row][col];
 
         // append X to empty spots
-        for (int i = 0; i < row - remain; i++) {
+        for (int i = 0; i < remain; i++) {
             plainText += "X";
         }
 
@@ -91,12 +91,31 @@ public class RowTransposition implements CipherInterface {
             }
         }
 
-        // rearrage according to key
-        for (int i = 0; i < col; i++) {
-            for (int j = 0; j < row; j++) {
-                arranged[j][i] += table[j][key[i] - 1];
+        // print table
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.print(table[i][j] + " ");
+            }
+            System.out.print("\n");
+        }
+
+        System.out.print("\n");
+
+        // rearrange according to key
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                arranged[i][key[j] - 1] += table[i][j];
             }
         }
+
+        // print rearranged
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.print(arranged[i][j] + " ");
+            }
+            System.out.print("\n");
+        }
+
 
         // create plaintext
         for (int i = 0; i < row; i++) {
