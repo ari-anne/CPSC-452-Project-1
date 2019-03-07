@@ -46,7 +46,7 @@ public class RowTransposition implements CipherInterface {
         table = new char[row][col];
 
         // append X to empty spots
-        for (int i = 0; i < remain; i++) {
+        for (int i = 0; i < (col - remain); i++) {
             plainText += "X";
         }
 
