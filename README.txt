@@ -13,12 +13,14 @@ Execution
 			RFC: Railfence
 			VIG: Vigenere
 			CES: Caesar
+			HIL: Hill
 		<KEY>: accepts parameters:
 			case PLF: keyword
 			case RTS: array of numbers (separated by spaces, e.g. "3 2 1")
 			case RFC: number
 			case VIG: keyword
 			case CES: number
+			case HIL: array of numbers (separated by spaces, e.g. "3 2 1")
 		<ENC>: accepts parameters
 			ENC: encrypt
 			DEC: decrypt
