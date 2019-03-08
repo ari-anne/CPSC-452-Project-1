@@ -5,15 +5,14 @@ public class Hill implements CipherInterface {
         // string key must be separated by spaces
         // accepts array of numbers
 
-		String[] tokens = key.split(" ");
-		this.key = new int[tokens.length];
+	String[] tokens = key.split(" ");
+	this.key = new int[tokens.length];
+	for (int i = 0; i < tokens.length; i++) {
+		this.key[i] = Integer.valueOf(tokens[i]);
+	}
 
-		for (int i = 0; i < tokens.length; i++) {
-			this.key[i] = Integer.valueOf(tokens[i]);
-		}
-
-		if(this.key.length != 4){
-			System.out.print("<KEY> invalid parameter. Enter an array of 4 numbers.\n");
+	if(this.key.length != 4){
+		System.out.print("<KEY> invalid parameter. Enter an array of 4 numbers.\n");
 			return false;
 		}
 	 
@@ -68,69 +67,71 @@ public class Hill implements CipherInterface {
 			y += 2;
 		}
 		
-			System.out.print(plainText + "\n");
-			System.out.print(cipherText + "\n");
-			return cipherText;
+	System.out.print(plainText + "\n");
+	System.out.print(cipherText + "\n");
+	return cipherText;
     }
 
     @Override
     public String decrypt(String cipherText) {
         String plainText = "";
-		int letter1 = 0;
-		int letter2 = 0;
-		int x = 0;
-		int y = 0;
-		int det = 0;
-		int fact = 0;
-		int a;
-		int b;
+	int letter1 = 0;
+	int letter2 = 0;
+	int x = 0;
+	int y = 1;
+	int det = 0;
+	int fact = 0;
+	int a;
+	int b;
 
-		int[] letters;
-		int[][] inverseMatrix;
+	int[] letters;
+	int[][] inverseMatrix;
+	
+	letters = new int[cipherText.length()];
+	inverseMatrix = new int [2][2];
 
-		inverseMatrix = new int [2][2];
+	a = key[0] * key[3];
+	b = key[1] * key[2];
 
-		a = key[0] * key[3];
-		b = key[1] * key[2];
-		
-		det = a-b;	
-		fact = 27 / det;	    
+	det = a-b; //gets determinant value	
+	fact = 27 / det; //gets factor
 
-		inverseMatrix[0][0] = key[3];
-		inverseMatrix[0][1] = -1*key[1];
-		inverseMatrix[1][0] = -1*key[2];
-		inverseMatrix[1][1] = key[0];
+	//inverts key matrix[][]
+	//assigns it to inverseMatrix[][]
+ 	inverseMatrix[0][0] = key[3]; 
+        inverseMatrix[0][1] = -1*key[1]; 
+        inverseMatrix[1][0] = -1*key[2]; 
+        inverseMatrix[1][1] = key[0]; 
+        
 
-		//create inverse matrix
-		for(int i = 0; i < 2; i++){
-			for(int j = 0; j < 2; j++){
-			inverseMatrix[i][j] = (fact*(inverseMatrix[i][j] % 26));
-			if(inverseMatrix[i][j] < 0){
-				inverseMatrix[i][j] += 26;
-			}
-			}
-		}
+        for(int i = 0; i < 2; i++){
+            for(int j = 0; j < 2; j++){
+                inverseMatrix[i][j] = (fact*(inverseMatrix[i][j] % 26)) %26;
+                if(inverseMatrix[i][j] < 0){
+                    inverseMatrix[i][j] += 26;
+                }
+            }
+        }
+        
+	//puts letters of the cipher in an array
+        for(int i = 0; i < cipherText.length(); i++){
+            letters[i] = (int)(cipherText.charAt(i)) - 65;
+	    //System.out.println(letters[i]);
+        }
 
-		letters = new int[cipherText.length()];
-		
-		//insert ascii value of text to array
-		for(int i = 0; i < cipherText.length(); i++){
-			letters[i] = (int)(cipherText.charAt(i)) - 65;
-		}
-
-		//
-		while(plainText.length() < cipherText.length()){
-			letter1 = (letters[x] * inverseMatrix[0][0] + letters[y] * inverseMatrix[0][1]) % 26 + 65;
-			letter2 = (letters[x] * inverseMatrix[1][0] + letters[y] * inverseMatrix[1][1]) % 26 + 65;
-
-			plainText = plainText + (char) letter1 + (char) letter2;
-
-			x += 2;
-			y += 2;
-		}
-
-			System.out.print(cipherText + "\n");
-			System.out.print(plainText + "\n");
-			return plainText;
+	//decrypts plaintext       
+        while(plainText.length() < cipherText.length()){
+            letter1 = (letters[x] * inverseMatrix[0][0] + letters[y] * inverseMatrix[0][1]) % 26 + 65;
+	    letter2 = (letters[x] * inverseMatrix[1][0] + letters[y] * inverseMatrix[1][1]) % 26 + 65;
+          
+            plainText = plainText + (char)letter1 + (char)letter2;
+            
+            x += 2;
+            y += 2;
+        }
+     
+	System.out.print(cipherText + "\n");
+	System.out.print(plainText + "\n");
+	return plainText;
     }
 }
