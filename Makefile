@@ -10,7 +10,9 @@ CLASSES = \
 	Caesar.java \
 	Playfair.java \
 	RowTransposition.java \
+	Railfence.java \
 	Vigenere.java \
+	Hill.java \
 	cipher.java
 
 default: classes
