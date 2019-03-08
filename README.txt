@@ -1,5 +1,5 @@
 Arianne Arcebal: hharin@csu.fullerton.edu
-
+Vanessa Delfin:	 vmdelfin@csu.fullerton.edu
 
 Language Used
 	Java
