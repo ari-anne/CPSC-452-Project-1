@@ -13,7 +13,7 @@ Execution
 			RFC: Railfence
 			VIG: Vigenere
 			CES: Caesar
-			HIL: Hill
+			HIL: Hill 
 		<KEY>: accepts parameters:
 			case PLF: keyword
 			case RTS: array of numbers, from 1 to the total number of columns (separated by spaces, e.g. "2 3 1")
